@@ -93,12 +93,12 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public void add(E item) {
-		if (size == backingArray.length) {
-			resize();
-		}
-		backingArray[size] = item;
-		percolateUp(size);
-		size++;
+	    if (size == backingArray.length) {
+	        resize();
+	    }
+	    backingArray[size] = item;
+	    percolateUp(backingArray, size, size + 1); // pass array, index, heapSize
+	    size++;
 	}
 
 	/**
@@ -174,19 +174,52 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	}
 
 	// Helper methods
+	
 	private void buildHeap() {
-		// TODO Auto-generated method stub
-
+	    for (int i = (size - 1) / 2; i >= 0; i--) {
+	        percolateDown(backingArray, i, size);
+	    }
 	}
 
-	private void percolateUp(int index) {
+	private void percolateUp(E[] arr, int i, int heapSize) {
+	    E item = arr[i];
 
+	    while (i > 0) {
+	        int parent = (i - 1) / 2;
+
+	        if (innerCompare(item, arr[parent]) > 0) {
+	            arr[i] = arr[parent]; // shift parent down
+	            i = parent;
+	        } else {
+	            break;
+	        }
+	    }
+
+	    arr[i] = item; // final resting place
 	}
 
-	private void percolateDown(int index) {
+	private void percolateDown(E[] arr, int i, int heapSize) {
+	    E item = arr[i];
+	    int child;
 
+	    while ((child = 2 * i + 1) < heapSize) {
+	        int right = child + 1;
+	        if (right < heapSize && innerCompare(arr[right], arr[child]) > 0) {
+	            child = right;
+	        }
+
+	        if (innerCompare(arr[child], item) > 0) {
+	            arr[i] = arr[child];
+	            i = child;
+	        } else {
+	            break;
+	        }
+	    }
+
+	    arr[i] = item;
 	}
 
+	@SuppressWarnings("unchecked")
 	private int innerCompare(E a, E b) {
 		if (comparator != null)
 			return comparator.compare(a, b);
