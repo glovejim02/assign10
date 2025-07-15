@@ -1,5 +1,6 @@
 package assign10;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,9 +13,11 @@ import java.util.NoSuchElementException;
  * @param <E>
  */
 public class BinaryMaxHeap<E> implements PriorityQueue<E> {
-
-	private final int DEFAULT_CAPACITY = 10;
+	// number of cells available for use in the heap
+	private static final int DEFAULT_CAPACITY = 10;
+	// backing array to hold items currently contained in heap
 	private E[] backingArray;
+	// number of items in backing array
 	private int size;
 	private Comparator<? super E> comparator;
 
@@ -56,7 +59,8 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap(List<? extends E> list) {
 		this.size = list.size();
-		//use Math.max to ensure that the size is set with enough room for more if the size of the list is less than 10
+		// use Math.max to ensure that the size is set with enough room for more if the
+		// size of the list is less than 10
 		this.backingArray = (E[]) new Object[Math.max(DEFAULT_CAPACITY, size)];
 		this.comparator = null;
 		for (int i = 0; i < size; i++) {
@@ -76,7 +80,8 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> cmp) {
 		this.size = list.size();
-		//use Math.max to ensure that the size is set with enough room for more if the size of the list is less than 10
+		// use Math.max to ensure that the size is set with enough room for more if the
+		// size of the list is less than 10
 		this.backingArray = (E[]) new Object[Math.max(DEFAULT_CAPACITY, size)];
 		this.comparator = cmp;
 		for (int i = 0; i < size; i++) {
@@ -110,8 +115,9 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public E peek() {
-        if (isEmpty()) throw new NoSuchElementException();
-        return backingArray[0];
+		if (isEmpty())
+			throw new NoSuchElementException();
+		return backingArray[0];
 	}
 
 	/**
@@ -121,7 +127,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public int size() {
-		
+
 		return size;
 	}
 
@@ -133,8 +139,16 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public E extract() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) 
+			throw new NoSuchElementException();
+			
+		E max = backingArray[0];
+		backingArray[0]= backingArray[size-1];
+		backingArray[--size] = null;
+		if(size>0) 
+			percolateDown(backingArray,0,size);
+		
+		return max;
 	}
 
 	/**
@@ -144,7 +158,7 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		
+
 		return size == 0;
 	}
 
@@ -153,8 +167,11 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		
+//		this.backingArray = null;
+//		this.backingArray = (E[]) new Object[DEFAULT_CAPACITY];
+		Arrays.fill(this.backingArray, 0, size,null);
+		this.size = 0;
 	}
 
 	/**
@@ -169,54 +186,54 @@ public class BinaryMaxHeap<E> implements PriorityQueue<E> {
 	 */
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return Arrays.copyOf(backingArray, size);
 	}
 
 	// Helper methods
-	
+
 	private void buildHeap() {
-	    for (int i = (size - 1) / 2; i >= 0; i--) {
-	        percolateDown(backingArray, i, size);
-	    }
+		for (int i = (size - 2) / 2; i >= 0; i--) {
+			percolateDown(backingArray, i, size);
+		}
 	}
 
 	private void percolateUp(E[] arr, int i, int heapSize) {
-	    E item = arr[i];
+		E item = arr[i];
 
-	    while (i > 0) {
-	        int parent = (i - 1) / 2;
+		while (i > 0) {
+			int parent = (i - 1) / 2;
 
-	        if (innerCompare(item, arr[parent]) > 0) {
-	            arr[i] = arr[parent]; // shift parent down
-	            i = parent;
-	        } else {
-	            break;
-	        }
-	    }
+			if (innerCompare(item, arr[parent]) > 0) {
+				arr[i] = arr[parent]; // shift parent down
+				i = parent;
+			} else {
+				break;
+			}
+		}
 
-	    arr[i] = item; // final resting place
+		arr[i] = item; // final resting place
 	}
 
 	private void percolateDown(E[] arr, int i, int heapSize) {
-	    E item = arr[i];
-	    int child;
+		E item = arr[i];
+		int child;
 
-	    while ((child = 2 * i + 1) < heapSize) {
-	        int right = child + 1;
-	        if (right < heapSize && innerCompare(arr[right], arr[child]) > 0) {
-	            child = right;
-	        }
+		while ((child = 2 * i + 1) < heapSize) {
+			int right = child + 1;
+			if (right < heapSize && innerCompare(arr[right], arr[child]) > 0) {
+				child = right;
+			}
 
-	        if (innerCompare(arr[child], item) > 0) {
-	            arr[i] = arr[child];
-	            i = child;
-	        } else {
-	            break;
-	        }
-	    }
+			if (innerCompare(arr[child], item) > 0) {
+				arr[i] = arr[child];
+				i = child;
+			} else {
+				break;
+			}
+		}
 
-	    arr[i] = item;
+		arr[i] = item;
 	}
 
 	@SuppressWarnings("unchecked")

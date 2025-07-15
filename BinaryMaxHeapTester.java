@@ -5,19 +5,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BinaryMaxHeapTester {
+	List<String> groceries;
 
-	public List<Integer> numbers;
-	
+	List<Integer> numbers;
+//	private priorityQueue<Integer> intHeap;
+
 	@BeforeEach
-	public void setup(){
-		numbers = new ArrayList<Integer>(Arrays.asList(new Integer[] {45, -6, 78, 23, 0, -8, 80}));
+	public void setup() {
+		numbers = new ArrayList<>(Arrays.asList(new Integer[] { 45, -6, 78, 23, 0, -8, 80 }));
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+		pq.add(36);
+		pq.add(17);
+		pq.add(3);
+		pq.add(100);
+		pq.add(19);
+		pq.add(2);
+		pq.add(70);
+		this.groceries = new ArrayList<>(Arrays.asList(new String[] { "apples","Bananna","bananna","cake"}));
+//		this.groceries=groceries;
+//		Arrays.asList(new String[] { "apples","Bananna","bananna","cake"}
 	}
-	
+//Test constructor for hashTable/////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void testConstructorInitializes() {
+		
+		assertEquals("cake", groceries.get(3));
+		assertEquals(4, groceries.size());
+//		assertEquals(101,  groceries.getTableCapacity());
+
+	}
+	@Test
+	public void testS() {
+		
+		assertEquals("cake", groceries.get(3));
+		assertEquals(4, groceries.size());
+//		assertEquals(101,  groceries.getTableCapacity());
+
+	}
 	@Test
 	public void testSize() {
 		//List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(new Integer[] {45, -6, 78, 23, 0, -8, 80}));
@@ -27,11 +59,20 @@ public class BinaryMaxHeapTester {
 	
 	@Test
 	public void testAddThenPeekRoot() {
-
+	BinaryMaxHeap<Integer> heap = new BinaryMaxHeap<Integer>();
+		heap.add(3);
+		heap.add(9);
+		heap.add(12);
+		heap.add(7);
+		heap.add(6);
+		heap.add(1);
+		assertEquals(12,heap.peek(),"");
 	}
 	
 	@Test
-	public void testBinaryHeapConstructor(){
-		
+	public void testBuildHeapRootAlwaysMax(){
+		BinaryMaxHeap<Integer> heap = new BinaryMaxHeap<>(Arrays.asList(124,75,100000,122222222,2343424,12,12));
+		assertEquals(122222222,heap.peek(),"");
 	}
+	
 }
