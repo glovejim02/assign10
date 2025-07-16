@@ -21,9 +21,19 @@ public class FindKLargest {
 	 * @throws IllegalArgumentException if k is negative or larger than the size of the given list
 	 */
 	public static <E extends Comparable<? super E>> List<E> findKLargestHeap(List<E> items, int k) 
-			throws IllegalArgumentException {
-		// TODO: Fill in (do not return null).
-		return null;
+	        throws IllegalArgumentException {
+	    if (k < 0 || k > items.size()) {
+	        throw new IllegalArgumentException("Invalid value of k");
+	    }
+
+	    BinaryMaxHeap<E> heap = new BinaryMaxHeap<>(items);
+	    List<E> result = new java.util.ArrayList<>();
+
+	    for (int i = 0; i < k; i++) {
+	        result.add(heap.extract());
+	    }
+
+	    return result;
 	}
 
 	/**
