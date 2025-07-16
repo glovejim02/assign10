@@ -32,32 +32,43 @@ public class BinaryMaxHeapTester {
 //		this.groceries=groceries;
 //		Arrays.asList(new String[] { "apples","Bananna","bananna","cake"}
 	}
-//Test constructor for hashTable/////////////////////////////////////////////////////////////////////
+//////////////////////Test Constructors for BinaryHeap/////////////////////////////////////////////////////////////////////
 
 	@Test
-	public void testConstructorInitializes() {
+	public void testConstructorInitializesEmtpyBinaryHeapUsingNaturalOrdered() {
 		
 		assertEquals("cake", groceries.get(3));
 		assertEquals(4, groceries.size());
-//		assertEquals(101,  groceries.getTableCapacity());
 
 	}
 	@Test
-	public void testS() {
+	public void testConstructorInitializesEmtpyBinaryHeapUsingProvidedComparator() {
 		
 		assertEquals("cake", groceries.get(3));
 		assertEquals(4, groceries.size());
-//		assertEquals(101,  groceries.getTableCapacity());
 
 	}
 	@Test
-	public void testSize() {
-		//List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(new Integer[] {45, -6, 78, 23, 0, -8, 80}));
-		BinaryMaxHeap<Integer> actual = new BinaryMaxHeap<Integer>(numbers);
-		assertEquals(7, actual.size());
+	public void testConstructorFromListsBinaryHeapUsingNaturalOrdered() {
+		
+		assertEquals("cake", groceries.get(3));
+		assertEquals(4, groceries.size());
+
 	}
+	@Test
+	public void testConstructorFromListInitializesBinaryHeapUsingGivenComparator() {
+		
+		assertEquals("cake", groceries.get(3));
+		assertEquals(4, groceries.size());
+
+	}
+//////////////////////Test add(E item) for BinaryHeap/////////////////////////////////////////////////////////////////////
+
+// test add resizes backing array correctly 
+// test add correct updates size
+// test add correctly update the max heap 
 	
-	@Test
+		@Test
 	public void testAddThenPeekRoot() {
 	BinaryMaxHeap<Integer> heap = new BinaryMaxHeap<Integer>();
 		heap.add(3);
@@ -69,10 +80,103 @@ public class BinaryMaxHeapTester {
 		assertEquals(12,heap.peek(),"");
 	}
 	
-	@Test
+//////////////////////Test peek() for BinaryHeap/////////////////////////////////////////////////////////////////////
+
+	//throw no such element exception if empty
+	
+		@Test
 	public void testBuildHeapRootAlwaysMax(){
 		BinaryMaxHeap<Integer> heap = new BinaryMaxHeap<>(Arrays.asList(124,75,100000,122222222,2343424,12,12));
 		assertEquals(122222222,heap.peek(),"");
 	}
+	
+	
+	
+//////////////////////Test size()) for BinaryHeap/////////////////////////////////////////////////////////////////////
+	@Test
+	public void testS() {
+		
+		assertEquals("cake", groceries.get(3));
+		assertEquals(4, groceries.size());
+//		assertEquals(101,  groceries.getTableCapacity());
+
+	}
+	
+	
+	@Test
+	public void testSize() {
+		//List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(new Integer[] {45, -6, 78, 23, 0, -8, 80}));
+		BinaryMaxHeap<Integer> actual = new BinaryMaxHeap<Integer>(numbers);
+		assertEquals(7, actual.size());
+	}
+	
+	
+//////////////////////Test extract() for BinaryHeap/////////////////////////////////////////////////////////////////////
+
+	
+	
+	
+	
+	//throw no such element exception if empty
+	
+	
+	
+//////////////////////Test isEmpty() for BinaryHeap/////////////////////////////////////////////////////////////////////
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+//////////////////////Test clear() for BinaryHeap/////////////////////////////////////////////////////////////////////
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+//////////////////////Test toArray() for BinaryHeap/////////////////////////////////////////////////////////////////////
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+
+//////////////////////Test buildHeap() for BinaryHeap/////////////////////////////////////////////////////////////////////
+
+	
+	
+	
+	
+
+	
+
+	
+
 	
 }
