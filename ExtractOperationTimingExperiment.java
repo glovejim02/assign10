@@ -1,6 +1,6 @@
 package assign10;
 
-import assign10.BinaryMaxHeap;
+
 import timing.TimingExperiment;
 
 import java.util.Random;
